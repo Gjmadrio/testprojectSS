@@ -1,24 +1,24 @@
-body {
+body, html {
   margin: 0;
-  overflow: hidden;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 
 #intro-screen {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: black;
+  background: radial-gradient(circle at center, #000010, #000000);
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: Arial, sans-serif;
   z-index: 10;
-  transition: opacity 1s ease-out;
 }
 
 canvas {

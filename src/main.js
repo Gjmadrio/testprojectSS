@@ -28,6 +28,10 @@ const venusTexture = textureLoader.load('/textures/2k_venus_surface.jpg')
 const earthTexture = textureLoader.load('/textures/2k_earth_daymap.jpg')
 const marsTexture = textureLoader.load('/textures/2k_mars.jpg')
 const moonTexture = textureLoader.load('/textures/2k_moon.jpg')
+const jupiterTexture = textureLoader.load('/textures/2k_jupiter.jpg')
+const neptuneTexture = textureLoader.load('/textures/2k_neptune.jpg')
+const saturnTexture = textureLoader.load('/textures/2k_saturn.jpg');
+const ringTexture = textureLoader.load('/textures/2k_saturn_ring_alpha.png');
 // const backgroundTexture = textureLoader.load()
 
 const backgroundCubemap = cubeTextureLoader
@@ -71,6 +75,24 @@ const moonMaterial = new THREE.MeshStandardMaterial(
     map:moonTexture
   }
 )
+const jupiterMaterial = new THREE.MeshBasicMaterial(
+  {
+    map:jupiterTexture
+  }
+)
+const neptuneMaterial = new THREE.MeshBasicMaterial(
+  {
+    map:neptuneTexture
+  }
+)
+const saturnMaterial = new THREE.MeshStandardMaterial(
+  {
+  map: saturnTexture
+  }
+)
+
+
+
 
 // add stuff here
 const sphereGeometry = new THREE.SphereGeometry(1, 32, 32)
@@ -147,6 +169,38 @@ const planets = [
       },
     ],
   },
+  {
+    name: "Jupiter",
+    radius: 0.7,
+    distance: 30,
+    speed: 0.01,
+    material: jupiterMaterial,
+    moons: [
+
+    ], 
+  },
+  {
+     name: "Neptune",
+    radius: 0.7,
+    distance: 30,
+    speed: 0.01,
+    material: neptuneMaterial,
+    moons: [
+
+    ], 
+  },
+  {
+     name: "Saturn",
+    radius: 1,
+    distance: 30,
+    speed: 0.003,
+    material: saturnMaterial,
+    moons: [
+
+    ], 
+  },
+
+
 ]
 const planetMeshes = planets.map((planet) => {
   
@@ -224,27 +278,22 @@ planetMeshes.forEach((planet, planetIndex) => {
 renderloop();
 
 
-
-const introTimeline = gsap.timeline();
+const introTimeline = gsap.timeline({
+  scrollTrigger: {
+    trigger: "#intro-screen",
+    start: "top top",  // animation starts when intro enters viewport
+    toggleActions: "play none none reverse", 
+    markers: true
+  }
+});
 
 introTimeline
-  .from("#intro-screen h1", {
-    duration: 1,
-    opacity: 0,
-    y: 50,
-    ease: "power3.out"
-  })
-  .from("#intro-screen p", {
-    duration: 1,
-    opacity: 0,
-    y: 30,
-    ease: "power3.out"
-  }, "-=0.5")
+  .from("#intro-screen h1", { duration: 2, opacity: 0, y: 50, ease: "power3.out" })
+  .from("#intro-screen p", { duration: 2, opacity: 0, y: 30, ease: "power3.out" }, "-=0.5")
   .to("#intro-screen", {
-    duration: 1.5,
+    duration: 1,
     opacity: 0,
     ease: "power2.inOut",
-    delay: 1, // keeps intro visible briefly
     onComplete: () => {
       document.getElementById("intro-screen").style.display = "none";
     }
