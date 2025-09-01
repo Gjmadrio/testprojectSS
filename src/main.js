@@ -17,7 +17,7 @@ const scene = new THREE.Scene();
 
 // Camera 
 const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 400); 
-camera.position.z = 50;
+camera.position.z = 75;
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -181,7 +181,7 @@ const planets = [
     name: "Jupiter",
     radius: 0.7,
     distance: 30,
-    speed: 0.01,
+    speed: 0.001,
     material: jupiterMaterial,
     moons: [
 
@@ -191,7 +191,7 @@ const planets = [
      name: "Neptune",
     radius: 0.7,
     distance: 30,
-    speed: 0.01,
+    speed: 0.003,
     material: neptuneMaterial,
     moons: [
 
@@ -241,6 +241,14 @@ planetTweaks.add(sun.position, "y").min(-3).max(3).step(0.01).name('elevation')
 planetTweaks.add(sun, 'visible')
 planetTweaks.add(sunMaterial, 'wireframe')
 
+const planetSettings = { wireframe: false };
+
+const PTweaks = gui.addFolder('PLANETS');
+PTweaks.add(planetSettings, 'wireframe').onChange((value) => {
+  planetMeshes.forEach((mesh, i) => {
+    planets[i].material.wireframe = value;
+  });
+});
 
 // add lights
 const ambientLight = new THREE.AmbientLight(
@@ -258,7 +266,7 @@ scene.add(pointLight)
 // Controls
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
-controls.autoRotate = false;
+controls.autoRotate = true;
 
 // Resizing the screen
 window.addEventListener('resize', () =>{
