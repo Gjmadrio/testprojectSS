@@ -316,6 +316,12 @@ let tl = gsap.timeline({
   }
 });
 
+// Hero fade text
+tl.to(".hero__headline span", { y: -50, opacity: 0 });
+
+// Hero image parallax
+tl.to(".hero__image", { y: "-30%" });
+
 // Hero fade out
 tl.to(".hero h1, .hero p, .scroll-down", { y: -50, opacity: 0 });
 
@@ -334,3 +340,28 @@ tl.from(".panel.plain p", { y: 50, opacity: 0 })
 // Gray panel
 tl.from(".panel.gray p", { y: 50, opacity: 0 })
   .to(".panel.gray p", { y: -50, opacity: 0 });
+
+  gsap.to(".panel.info", {
+  scrollTrigger: {
+    trigger: ".panel.info",
+    start: "top center",
+    end: "bottom top",
+    scrub: true
+  },
+  x: -100,     // move left
+  opacity: 0,
+  ease: "power1.out"
+});
+
+// Animate info-right section: fade out to right on scroll
+gsap.to(".panel.info-right", {
+  scrollTrigger: {
+    trigger: ".panel.info-right",
+    start: "top center",
+    end: "bottom top",
+    scrub: true
+  },
+  x: 100,     // move right
+  opacity: 0,
+  ease: "power1.out"
+});

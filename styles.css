@@ -119,3 +119,70 @@ h1, h2, p, li {
   font-size: 1.2rem;
   transform: translateY(0);
 }
+
+.panel.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #111;
+  color: white;
+  overflow: hidden;
+}
+
+.info__container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.info__image {
+  width: 40%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.info__text {
+  max-width: 50%;
+}
+
+.panel.info.fade-left {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.panel.info.fading-out {
+  transform: translateX(-50px);
+  opacity: 0;
+  transition: all 0.8s ease-out;
+}
+
+/*test*/
+.panel.info-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #222;
+  color: white;
+  overflow: hidden;
+}
+
+.info-right .info__container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.panel.info-right .info__image {
+  width: 40%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.panel.info-right .info__text {
+  max-width: 50%;
+}
