@@ -2,28 +2,119 @@ body, html {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: auto !important;
+  scrollbar-width: none; 
+
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.line {
+  width: 100%;
+  max-width: 800px;
+  height: 8px;
+  margin: 0 0 10px 0;
+  position: relative;
+  display: inline-block;
+  background-color: var(--color-surface-white);
 }
 
 
-#intro-screen {
-  position: absolute;
-  top: 0;
-  left: 0;
+.panel {
   width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, #000010, #000000);
-  color: white;
+  height: 100vh;
+   background: radial-gradient(circle at center, #000010, #000000);
+   color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.panel.align-top {
+  align-items: flex-start;
+}
+
+.panel.description {
+  padding-bottom: 100px;
+}
+.panel li {
+  margin: 0;
+}
+
+h1, h2, p, li {
+  max-width: 800px;
+}
+
+.scroll-down {
+  bottom:auto;
+  top:vh;
+  position:relative;
+}
+
+
+
+.hero {
+  height: 100vh; /* full screen */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  color: white;
+  background: transparent; /* canvas shows through */
   z-index: 10;
+  position: relative;
+  padding: 0 2rem;
 }
 
-canvas {
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  max-width: 700px;
+  line-height: 1.5;
+  font-size: 1.2rem;
+}
+
+.scroll-down {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.scroll-down .arrow {
+  margin-top: 0.5rem;
+  width: 20px;
+  height: 20px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg);
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: rotate(-45deg) translateY(0); }
+  50% { transform: rotate(-45deg) translateY(10px); }
+}
+.panel {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;  /* horizontal center */
+  align-items: center;      /* vertical center */
+  text-align: center;
+  background: radial-gradient(circle at center, #000010, #000000);
+  color: #fff;
+}
+
+.panel p {
+  margin: 0;
+  opacity: 1;
+  transform: translateY(0);
 }

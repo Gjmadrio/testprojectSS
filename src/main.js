@@ -1,6 +1,14 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import gsap from "gsap";
+  import ScrollTrigger from "gsap/ScrollTrigger";
+import GUI from 'lil-gui'
+
+const gui = new GUI ({
+  width: 300,
+  title: 'GRETHEL JANE DEBUG UI',
+  closeFolders: false
+})
 
 
 // Scene
@@ -228,6 +236,12 @@ const planetMeshes = planets.map((planet) => {
   // add the moon to the planet
 })
 
+const planetTweaks = gui.addFolder('SUN')
+planetTweaks.add(sun.position, "y").min(-3).max(3).step(0.01).name('elevation')
+planetTweaks.add(sun, 'visible')
+planetTweaks.add(sunMaterial, 'wireframe')
+
+
 // add lights
 const ambientLight = new THREE.AmbientLight(
   0xffffff,
@@ -244,7 +258,7 @@ scene.add(pointLight)
 // Controls
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
-controls.autoRotate = true;
+controls.autoRotate = false;
 
 // Resizing the screen
 window.addEventListener('resize', () =>{
@@ -278,23 +292,37 @@ planetMeshes.forEach((planet, planetIndex) => {
 renderloop();
 
 
-const introTimeline = gsap.timeline({
+
+
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Master timeline
+let tl = gsap.timeline({
   scrollTrigger: {
-    trigger: "#intro-screen",
-    start: "top top",  // animation starts when intro enters viewport
-    toggleActions: "play none none reverse", 
-    markers: true
+    trigger: ".hero",
+    start: "top top",
+    end: "+=400%",      // total scroll for all panels
+    scrub: true,
+    pin: true
   }
 });
 
-introTimeline
-  .from("#intro-screen h1", { duration: 2, opacity: 0, y: 50, ease: "power3.out" })
-  .from("#intro-screen p", { duration: 2, opacity: 0, y: 30, ease: "power3.out" }, "-=0.5")
-  .to("#intro-screen", {
-    duration: 1,
-    opacity: 0,
-    ease: "power2.inOut",
-    onComplete: () => {
-      document.getElementById("intro-screen").style.display = "none";
-    }
-  });
+// Hero fade out
+tl.to(".hero h1, .hero p, .scroll-down", { y: -50, opacity: 0 });
+
+// Red panel
+tl.from(".panel.red p", { y: 50, opacity: 0 })
+  .to(".panel.red p", { y: -50, opacity: 0 });
+
+// Orange panel
+tl.from(".panel.orange p", { y: 50, opacity: 0 })
+  .to(".panel.orange p", { y: -50, opacity: 0 });
+
+// Plain panel
+tl.from(".panel.plain p", { y: 50, opacity: 0 })
+  .to(".panel.plain p", { y: -50, opacity: 0 });
+
+// Gray panel
+tl.from(".panel.gray p", { y: 50, opacity: 0 })
+  .to(".panel.gray p", { y: -50, opacity: 0 });
